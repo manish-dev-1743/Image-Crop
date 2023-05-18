@@ -32,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imageHeight = imagesy($image);
 
         // Calculate the position to place the watermark text
-        $textWidth = strlen($text) * imagefontwidth($fontSize) + 20;
-        $textHeight = imagefontheight($fontSize) + 20;
+        $textWidth = strlen($text) * imagefontwidth($fontSize);
+        $textHeight = imagefontheight($fontSize);
         $x = $imageWidth - $textWidth - 10; // 10 pixels from the right edge
         $y = $imageHeight - imagefontheight($fontSize) - 10; // 10 pixels from the bottom edge
 
