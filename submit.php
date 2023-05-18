@@ -19,7 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $text = "www.abilityclassifieds.com";
 
         // Set the watermark text color and transparency
-        $textColor = imagecolorallocatealpha($image, 255, 255, 0, 60);
+        $textColor = imagecolorallocate($image, 255, 255, 0);
+
+         // Set the background color for the watermark text
+         $backgroundColor = imagecolorallocatealpha($image, 0, 0, 0,50);
 
         // Set the font size for the watermark text
         $fontSize = 5;
@@ -29,9 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imageHeight = imagesy($image);
 
         // Calculate the position to place the watermark text
-        $textWidth = strlen($text) * imagefontwidth($fontSize);
+        $textWidth = strlen($text) * imagefontwidth($fontSize) + 20;
+        $textHeight = imagefontheight($fontSize) + 20;
         $x = $imageWidth - $textWidth - 10; // 10 pixels from the right edge
         $y = $imageHeight - imagefontheight($fontSize) - 10; // 10 pixels from the bottom edge
+
+         // Add the background color rectangle
+         imagefilledrectangle($image, $x, $y, $x + $textWidth, $y + $textHeight, $backgroundColor);
 
         // Add the text watermark to the image
         imagestring($image, $fontSize, $x, $y, $text, $textColor);
